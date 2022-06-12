@@ -2,8 +2,13 @@ const startButton = document.getElementById('start-btn');
 startButton.addEventListener('click', startGame)
 const starterInfo = document.getElementById('starter-info');
 const questionContainerElement = document.getElementById('question-container');
-const questionList = document.getElementById('question');
+var questionList = document.getElementById('question');
 var timerEl = document.getElementById('countdown');
+var button1 = document.getElementById('btn1')
+var button2 = document.getElementById('btn2')
+var button3 = document.getElementById('btn3')
+var button4 = document.getElementById('btn4')
+var questionIndex = 0
 var myQues = questions = [
   {
     question: 'What will console.log(9 + 4); print?',
@@ -67,6 +72,11 @@ function startGame() {
 
 function setNextQuestion() {
   console.log('accesing question')
+  questionList.textContent = questions[questionIndex].question;
+  button1.textContent = questions[questionIndex].answers[0].text
+  button2.textContent = questions[questionIndex].answers[1].text
+  button3.textContent = questions[questionIndex].answers[2].text
+  button4.textContent = questions[questionIndex].answers[3].text
 }
 
 //---------------
@@ -79,8 +89,8 @@ function selectAnswer() {
 
 // timer
 function setTime() {
-  //counts down from 90 seconds
-  var timeLeft = 90;
+  //counts down from 30 seconds
+  var timeLeft = 30;
 
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
