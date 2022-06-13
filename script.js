@@ -1,91 +1,94 @@
-const startButton = document.getElementById('start-btn');
-startButton.addEventListener('click', startGame)
-const starterInfo = document.getElementById('starter-info');
-const questionContainerElement = document.getElementById('question-container');
-var questionList = document.getElementById('question');
+// HTML elements for manipulation 
+var container = document.getElementsByClassName('container');
 var timerEl = document.getElementById('countdown');
-var button1 = document.getElementById('btn1')
-var button2 = document.getElementById('btn2')
-var button3 = document.getElementById('btn3')
-var button4 = document.getElementById('btn4')
-var questionIndex = 0
-var myQues = questions = [
-  {
-    question: 'What will console.log(9 + 4); print?',
-    answers: [
-      { text: '13', correct: true },
-      { text: '22', correct: false },
-      { text: '10', correct: false },
-      { text: '12', correct: false }
-    ]
-  },
-  {
-    question: 'What process does this code perform?  let name;',
-    answers: [
-      { text: 'variable initialization', correct: false },
-      { text: 'variable assignment', correct: false },
-      { text: 'variable declaration', correct: true },
-      { text: 'variable letting', correct: false }
-    ]
-  },
-  {
-    question: 'What will the code print? let name; console.log(name)',
-    answers: [
-      { text: 'undefined', correct: true },
-      { text: 'null', correct: false },
-      { text: 'O', correct: false },
-      { text: 'name', correct: false }
-    ]
-  },
-  {
-    question: 'Which operator is used to perform variable assignment?',
-    answer: [
-      { text: '===', correct: false },
-      { text: '==', correct: false },
-      { text: '=', correct: true },
-      { text: '<-', correct: false }
-    ]
-  },
-  {
-    question: 'what process does this code perform? let name = "jane";',
-    answer: [
-      { text: 'variable initialization', correct: false },
-      { text: 'variable assignment', correct: true },
-      { text: 'variable declaration', correct: false },
-      { text: 'variable letting', correct: false }
-    ]
-  }
-]
+var questionContainer = document.getElementById('question-container');
+var questionText = document.getElementById('question');
+var buttonA = document.getElementById('btnA');
+var buttonB = document.getElementById('btnB');
+var buttonC = document.getElementById('btnC');
+var buttonD = document.getElementById('btnD');
+var startBtn = document.getElementById('start-btn');
+var starterInfo = document.getElementById('starter-info');
+var scoreBoard = document.getElementById('finalScore');
+var highscore = document.getElementById('highscore')
+var initials = document.getElementById('initials')
 
-//---------------
+//Quiz Questions 
+var myQuestions = [
+  {
+    question: "What will console.log(9 + 4); print?",
+    answerA: "13",
+    answerB: "22",
+    answerC: "10",
+    answerD: "12",
+    correctAnswer: "a"
+  },
+  {
+    question: "What process does this code perform?  let name;",
+    answerA: "Variable initialization",
+    answerB: "Variable assignment",
+    answerC: "Variable declaration",
+    answerD: "Variable letting",
+    correctAnswer: "c"
+  },
+  {
+    question: "What will the code print? let name; console.log(name)",
+    answerA: "Undefined",
+    answerB: "Null",
+    answerC: "name",
+    answerD: "string",
+    correctAnswer: "a"
+  },
+  {
+    question: "Which operator is used to perform variable assignment?",
+    answerA: "===",
+    answerB: "==",
+    answerC: "=",
+    answerD: "<-",
+    correctAnswer: "c"
+  },
+  {
+    question: "what process does this code perform? let name = 'jane';",
+    answerA: "Variable initialization",
+    answerB: "Variable assignment",
+    answerC: "Variable declaration",
+    answerD: "Variable letting",
+    correctAnswer: "a"
+  },
+];
 
+// variables in global scope
+var lastQuestionIndex = myQuestions.length;
+var currentQuestionIndex = 0;
+var score = 0;
+var correct;
+
+// startGame function, hides start button, hides starter info, questionContainer shows up, timer starts, sets the question
 function startGame() {
-  console.log('started')
-  startButton.classList.add('hidden')
-  starterInfo.classList.add('hidden')
-  questionContainerElement.classList.remove('hidden')
+  console.log('game started');
+  startBtn.classList.add('hidden');
+  starterInfo.classList.add('hidden');
+  questionContainer.classList.remove('hidden');
+  setTime();
   setNextQuestion()
-  setTime()
 }
 
-//---------------
-
+//setNextQuestion function, populate question and answers
 function setNextQuestion() {
-  console.log('accesing question')
-  questionList.textContent = questions[questionIndex].question;
-  button1.textContent = questions[questionIndex].answers[0].text
-  button2.textContent = questions[questionIndex].answers[1].text
-  button3.textContent = questions[questionIndex].answers[2].text
-  button4.textContent = questions[questionIndex].answers[3].text
+  console.log('accesing questions')
+  var currentQuestion = myQuestions[currentQuestionIndex];
+  questionText.textContent = currentQuestion.question;
+  buttonA.textContent = currentQuestion.answerA;
+  buttonB.textContent = currentQuestion.answerB;
+  buttonC.textContent = currentQuestion.answerC;
+  buttonD.textContent = currentQuestion.answerD;
+  console.log(currentQuestion)
 }
 
-//---------------
 
 function selectAnswer() {
 
 }
-
-//---------------
 
 // timer
 function setTime() {
@@ -110,6 +113,11 @@ function setTime() {
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
       //call the scorebored function (not set)
+      // scoreBoard()
     }
   }, 1000);
+
 }
+
+//event listeners
+startBtn.addEventListener('click', startGame)
