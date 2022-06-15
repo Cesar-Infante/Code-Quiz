@@ -12,6 +12,7 @@ var starterInfo = document.getElementById('starter-info');
 var scoreBoard = document.getElementById('finalScore');
 var highscore = document.getElementById('highscore')
 var initials = document.getElementById('initials')
+var result = document.getElementById('result')
 
 //Quiz Questions 
 var myQuestions = [
@@ -21,7 +22,7 @@ var myQuestions = [
     answerB: "22",
     answerC: "10",
     answerD: "12",
-    correctAnswer: "a"
+    correctAnswer: "13"
   },
   {
     question: "What process does this code perform?  let name;",
@@ -29,7 +30,7 @@ var myQuestions = [
     answerB: "Variable assignment",
     answerC: "Variable declaration",
     answerD: "Variable letting",
-    correctAnswer: "c"
+    correctAnswer: "Variable declaration"
   },
   {
     question: "What will the code print? let name; console.log(name)",
@@ -37,7 +38,7 @@ var myQuestions = [
     answerB: "Null",
     answerC: "name",
     answerD: "string",
-    correctAnswer: "a"
+    correctAnswer: "Undefined"
   },
   {
     question: "Which operator is used to perform variable assignment?",
@@ -45,7 +46,7 @@ var myQuestions = [
     answerB: "==",
     answerC: "=",
     answerD: "<-",
-    correctAnswer: "c"
+    correctAnswer: "="
   },
   {
     question: "what process does this code perform? let name = 'jane';",
@@ -53,7 +54,7 @@ var myQuestions = [
     answerB: "Variable assignment",
     answerC: "Variable declaration",
     answerD: "Variable letting",
-    correctAnswer: "a"
+    correctAnswer: "Variable initialization"
   },
 ];
 
@@ -85,8 +86,18 @@ function setNextQuestion() {
   console.log(currentQuestion)
 }
 
+// Need to get input from user, determine if the user input is correct or incorrect -help from Omar
 
-function selectAnswer() {
+function selectAnswer(event) {
+  var userAnswer = event.target.textContent;
+  var correctAnswer = myQuestions[currentQuestionIndex]['correctAnswer'];
+
+  if (userAnswer === correctAnswer) {
+    result.textContent = "Correct!";
+    console.log(userAnswer)
+  } else {
+    result.textContent = "incorrect!"
+  }
 
 }
 
@@ -121,3 +132,7 @@ function setTime() {
 
 //event listeners
 startBtn.addEventListener('click', startGame)
+buttonA.addEventListener('click', selectAnswer)
+buttonB.addEventListener('click', selectAnswer)
+buttonC.addEventListener('click', selectAnswer)
+buttonD.addEventListener('click', selectAnswer)
