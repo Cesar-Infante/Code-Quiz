@@ -63,6 +63,7 @@ var lastQuestionIndex = myQuestions.length;
 var currentQuestionIndex = 0;
 var score = 0;
 var correct;
+var timeLeft = 30;
 
 // startGame function, hides start button, hides starter info, questionContainer shows up, timer starts, sets the question
 function startGame() {
@@ -71,22 +72,24 @@ function startGame() {
   starterInfo.classList.add('hidden');
   questionContainer.classList.remove('hidden');
   setTime();
-  setNextQuestion()
+  setNextQuestion();
 }
 
 //setNextQuestion function, populate question and answers
 function setNextQuestion() {
-  console.log('accesing questions')
+  currentQuestionIndex++;
   var currentQuestion = myQuestions[currentQuestionIndex];
   questionText.textContent = currentQuestion.question;
   buttonA.textContent = currentQuestion.answerA;
   buttonB.textContent = currentQuestion.answerB;
   buttonC.textContent = currentQuestion.answerC;
   buttonD.textContent = currentQuestion.answerD;
+  console.log('accesing questions')
   console.log(currentQuestion)
 }
 
-// Need to get input from user, determine if the user input is correct or incorrect -help from Omar
+// Need to get input from user, determine if the user input is correct or incorrect 
+//setTimeout method to clear the answer after 1 second
 
 function selectAnswer(event) {
   var userAnswer = event.target.textContent;
@@ -95,16 +98,20 @@ function selectAnswer(event) {
   if (userAnswer === correctAnswer) {
     result.textContent = "Correct!";
     console.log(userAnswer)
+    score += 10;
   } else {
     result.textContent = "incorrect!"
+    score -= 12
+    timeLeft -= 3;
   }
-
+  setTimeout(function() {
+    setNextQuestion();
+    result.textContent = '';
+  }, 1000);
 }
 
 // timer
 function setTime() {
-  //counts down from 30 seconds
-  var timeLeft = 30;
 
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
@@ -114,7 +121,7 @@ function setTime() {
       timerEl.textContent = timeLeft + ' seconds remaining';
       // Decrement `timeLeft` by 1
       timeLeft--;
-    } else if (timeLeft === 1) {
+    } else if (timeLeft === 0) {
       // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
       timerEl.textContent = timeLeft + ' second remaining';
       timeLeft--;
@@ -124,9 +131,12 @@ function setTime() {
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
       //call the scorebored function (not set)
-      // scoreBoard()
+      scoreBoard()
     }
   }, 1000);
+}
+
+function scoreBoard() {
 
 }
 
